@@ -1,0 +1,7 @@
+#summary Overview of our project and our goals.
+
+= A programmable light-show interface =
+
+
+
+= Project Components =
