@@ -32,9 +32,16 @@ public class ClientPlayer {
 		nextCue();
 	}
 	
+	public void stop() {
+		events.shutdown();
+		actions.shutdown();
+	}
+	
 	private void nextCue() {
 		final Cue cue = queue.poll();
-		if (cue == null) return;
+		if (cue == null) {
+			stop();
+		};
 		
 		Runnable act = new CueLoader(cue);
 		
