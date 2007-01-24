@@ -21,13 +21,13 @@ public class DemoClient {
         BufferedSocket bs = null;
         String rtn = null;
         try{
-            bs = new BufferedSocket(remoteHost,remotePort);
-            rtn = bs.readUTF();
+            bs = new BufferedSocket(remoteHost,remotePort); //connect to the server
+            rtn = bs.readUTF(); //get the server response
         }catch(IOException ioe){
             System.err.println("Could not connect: "+ioe);
         }finally{
             try{
-                if(bs!=null){ bs.close(); }
+                if(bs!=null){ bs.close(); } //clean up
             }catch(IOException ioe){
                 System.err.println("Could not close socket: "+ioe);
             }
