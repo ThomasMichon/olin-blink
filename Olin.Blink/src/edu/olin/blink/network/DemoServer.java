@@ -26,11 +26,13 @@ public class DemoServer implements Runnable {
     
     public DemoServer(int port){
         this.port = port;
-        try{ ss = new ServerSocket(port); } catch(Exception e){ throw new RuntimeException("Unable to create server socket"); }
-        (new Thread(this)).start();
+        try{ ss = new ServerSocket(port); //start listening on the specified port
+        }catch(Exception e){ throw new RuntimeException("Unable to create server socket");
+        }
+        (new Thread(this)).start(); //run a separate thread to listen for connections
     }
     
-    public void stop(){
+    public void stop(){ //cease running the server
         running = false;
         if(ss!=null && !ss.isClosed()){
             try{ ss.close(); }catch(IOException ioe){ System.err.println("Could not close ServerSocket: "+ioe); }
@@ -40,16 +42,16 @@ public class DemoServer implements Runnable {
     public void run() {
         running = true;
         System.out.println("Server listening on port "+port);
-        while(running){
+        while(running){ //listen for connections until stopped
             Thread.yield(); //don't be a processor hog - let others do something.
             BufferedSocket s;
             try{
-                s = new BufferedSocket(ss.accept());
+                s = new BufferedSocket(ss.accept()); //construct a BufferedSocket to communicate with the client
             }catch(IOException e){ continue; /*no incoming connections; continue loop*/
             }
             try{
                 String name = "client"+System.currentTimeMillis();//s.readUTF();
-                /* next I just write out the client's host back to it and then close
+                /* next I just write out the client's host back to the client and then close
                  * in an actual server, you would start a new thread to read/write this socket
                  * so that the server can take more connections
                  */
