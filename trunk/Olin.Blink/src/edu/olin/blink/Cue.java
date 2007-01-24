@@ -1,37 +1,27 @@
 package edu.olin.blink;
 
-public class Cue {
+/**
+ * A <tt>Cue</tt> is an action that will occur at a particular time.
+ * <tt>Cue</tt> extends <tt>Runnable</tt>, so cues require an implementation in order
+ * to perform these actions.
+ */
+public abstract class Cue implements Runnable, Comparable<Cue> {
+	protected int time;
 	
-	private int time;
-	private int level;
-	
-	/**
-	 *	Creates a <tt>Cue</tt>.
-	 *
-	 *	@param time the time at which this cue must be executed (milliseconds).
-	 *	@param level the level that the output must be set to.
-	 */
-	public Cue(int time, int level) {
+	public Cue(int time) {
 		this.time = time;
-		this.level = level;
 	}
 	
 	/**
-	 *	Retrieves the time that this cue is scheduled to go off, relative to the some beginning.
-	 *
-	 *	@return a time value in milliseconds.
+	 * Gets the time at which this cue will execute. The time value is relative.
 	 */
 	public int getTime() {
 		return this.time;
 	}
 	
-	/**
-	 * Retrieves the level that the associated channel must set it's output to.
-	 *
-	 * @return a level value between 0 and 255.
-	 */
-	public int getLevel() {
-		return this.level;
-	}
+	public abstract void run();
 	
+	public int compareTo(Cue other) {
+		return getTime() - other.getTime();
+	}
 }
