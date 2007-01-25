@@ -23,13 +23,24 @@ import java.util.concurrent.TimeUnit;
  * </ol>
  */
 public class CuePlayer {
-	private ScheduledExecutorService events = Executors.newSingleThreadScheduledExecutor();
-	private ExecutorService actions = Executors.newSingleThreadExecutor();
+	// this thread will handle the timing. Although we could theoretically schedule all cues
+	// using the schedule() method alone, it's not possible to schedule stuff at once without
+	// the thread starting execution. So we schedule cues one at a time on a relative basis.
+	private ScheduledExecutorService events;
 	
+	// this is the thread on which all cues will execute, unless they create their own threads.
+	// we do this to ensure that cues are fired as quickly as possible, so we don't run out of time.
+	private ExecutorService actions;
+	
+	// Since we execute cues in sequence, all we need is a heap sorted by time of execution.
 	private Queue<Cue> queue = new PriorityQueue<Cue>();
-	private Light light;
 	
+	// We need to store the last start-time of the player in order to ensure accuracy.
 	private long startTime = -1;
+	
+	// This helps with synchronization, to ensure that we don't wind up causing things
+	// to happen that we don't want.
+	private boolean running = false;
 	
 	/**
 	 * Creates a new {@link CuePlayer}.
@@ -55,6 +66,10 @@ public class CuePlayer {
 	 * and at the appropriate times.
 	 */
 	public void setCues(Collection<Cue> cues) {
+		synchronized (this) {
+			if (running) return;
+		}
+		
 		queue.clear();
 		// Allow the heap to take care of ordering.
 		queue.addAll(cues);
@@ -64,9 +79,18 @@ public class CuePlayer {
 	 * Starts execution of cues. All cues are executed relative to the time at which this method is called.
 	 */
 	public void start() {
+		synchronized(this) {
+			if (running) return;
+			running = true;
+		}
+
+		// Hopefully calling these don't take too long.
+		events = Executors.newSingleThreadScheduledExecutor();
+		actions = Executors.newSingleThreadExecutor();
+
 		// Store the time at which we started in order to maintain reasonable precision.
 		startTime = System.currentTimeMillis();
-		// And execute the next queue as soon as possible.
+		// And execute the next cue as soon as possible.
 		nextCue();
 	}
 	
@@ -74,9 +98,28 @@ public class CuePlayer {
 	 * Stops execution of cues. No more cues will execute after this method is called.
 	 */
 	public void stop() {
+		synchronized (this) {
+			if (! running) return;
+			running = false;
+		}
+		
 		events.shutdown();
 		actions.shutdown();
+		
+		queue.clear();
+		
 		startTime = -1;
+	}
+	
+	/**
+	 * Determines if this {@link CuePlayer} is currently executing cues.
+	 * A {@link CuePlayer} executes cues as long as it has cues to execute and has been started.
+	 * @return whether or not this {@link CuePlayer} is currently executing cues.
+	 */
+	public boolean isRunning() {
+		synchronized (this) {
+			return running;
+		}
 	}
 	
 	private void nextCue() {
@@ -86,6 +129,7 @@ public class CuePlayer {
 			return;
 		};
 		
+		// this way we don't have to delcare any final variables
 		Runnable act = new CueLoader(cue);
 		
 		// Schedules the next cue to occur 
