@@ -2,15 +2,18 @@ package edu.olin.blink;
 
 /**
  * A {@link Cue} is an action that will occur at a particular time.
- * {@link Cue} implements {@link Runnable}, so subclasses must override the {@link run}
+ * <code>Cue</code> implements {@link java.lang.Runnable}, so subclasses must override the {@link java.lang.Runnable#run}
  * method in order to perform actions.
  */
 public abstract class Cue implements Runnable, Comparable<Cue> {
+	/**
+	 * the time at which this <code>Cue</code> will execute, in milliseconds.
+	 */
 	protected int time;
 	
 	/**
-	 * Creates a new {@link Cue} that will execute at the specified time in milliseconds.
-	 * Although this class is abstract, a {@link Cue} must have a valid time.
+	 * Creates a new <code>Cue</code> that will execute at the specified time in milliseconds.
+	 * Although this class is abstract, a <code>Cue</code> must have a valid time.
 	 * @param time the time at which this {@link Cue} will execute.
 	 */
 	public Cue(int time) {
@@ -26,8 +29,8 @@ public abstract class Cue implements Runnable, Comparable<Cue> {
 	}
 	
 	/**
-	 * Executes this {@link Cue}. Subclasses must override this method in order to perform their actions.
-	 * Since <tt>Cue</tt> implements {@link Runnable}, cues can be executed by most classes in the Java runtime.
+	 * Executes this <code>Cue</code>. Subclasses must override this method in order to perform their actions.
+	 * Since <code>Cue</code> implements <code>Runnable</code>, cues can be executed by most classes in the Java runtime.
 	 */
 	public abstract void run();
 	
@@ -43,7 +46,8 @@ public abstract class Cue implements Runnable, Comparable<Cue> {
 	 * 		you should probably stack them into a single "group" cue instead of
 	 * 		intersting them all into the same timeline.
 	 * </p>
-	 * @param other the other {@link Cue} to which this {@link Cue} will be compared.
+	 * @param other the other {@link Cue} to which this <code>Cue</code> will be compared.
+	 * @return see {@link java.lang.Comparable#compareTo}.
 	 */
 	public int compareTo(Cue other) {
 		return getTime() - other.getTime();
