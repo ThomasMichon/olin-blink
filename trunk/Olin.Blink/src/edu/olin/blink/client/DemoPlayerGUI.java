@@ -44,7 +44,7 @@ public class DemoPlayerGUI extends JFrame {
         List<Cue> cues = new LinkedList<Cue>();
         for (int i = 0; i < 20; i ++)
             cues.add(new FlipGUICue(flipper,i * 500 + 2000, i));
-        ClientPlayer player = new ClientPlayer();
+        CuePlayer player = new CuePlayer();
         player.setCues(cues);
         player.start();
     }

@@ -15,7 +15,7 @@ public class DemoPlayer {
 		for (int i = 0; i < 20; i ++)
 			cues.add(new DummyCue(i * 500 + 1000, i));
 		
-		ClientPlayer player = new ClientPlayer();
+		CuePlayer player = new CuePlayer();
 		player.setCues(cues);
 		
 		player.start();
