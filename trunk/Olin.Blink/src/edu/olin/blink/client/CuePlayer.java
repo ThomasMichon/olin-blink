@@ -15,11 +15,11 @@ import java.util.concurrent.TimeUnit;
  * 		A {@link CuePlayer} executes {@link Cue}s at their associated times relative to some start time.
  * </p>
  * <p>
- * 		In order to initialize and play a sequence of {@link Cue}s, the following actions must be performed:
+ * 		 In order to initialize and play a sequence of <code>Cue</code>s, the following actions must be performed:
  * </p>
  * <ol>
- * 		<li>The {@link setCues} method is called with a {@link List} of {@link Cue} objects.</li>
- * 		<li>The {@link start} method is called at the desired start time.</li>
+ * 		 <li>The {@link #setCues} method is called with a <code>List</code> of <code>Cue</code> objects.</li>
+ * 		<li>The {@link #start} method is called at the desired start time.</li>
  * </ol>
  */
 public class CuePlayer {
@@ -43,24 +43,24 @@ public class CuePlayer {
 	private boolean running = false;
 	
 	/**
-	 * Creates a new {@link CuePlayer}.
+	 * Creates a new <code>CuePlayer</code>.
 	 */
 	public CuePlayer() {
 	}
 	
 	/**
-	 * Gets the time at which this {@link CuePlayer} started execution of a sequence of cues.
-	 * @return The system time (according to {@link System.currentTimeMillis})
-	 * at which the {@link start} method was called, or -1
-	 * if the {@link CuePlayer} is not currently executing cues.
+	 * Gets the time at which this <code>CuePlayer</code> started execution of a sequence of cues.
+	 * @return The system time (according to {@link java.lang.System#currentTimeMillis})
+	 * at which the <code>start</code> method was called, or -1
+	 * if the <code>CuePlayer</code> is not currently executing cues.
 	 */
 	public long getStartTime() {
 		return startTime;
 	}
 	
 	/**
-	 * Sets the sequence of cues to be those in the given {@link Collection}.
-	 * The order of the cues in the collection is irrelevant; the {@link CuePlayer} will
+	 * Sets the sequence of cues to be those in the given <code>Collection</code>.
+	 * The order of the cues in the collection is irrelevant; the <code>CuePlayer</code> will
 	 * play cues in the natural order regardless.
 	 * @param cues A collection of cues that this {@link CuePlayer} must execute sequentially
 	 * and at the appropriate times.
@@ -112,8 +112,8 @@ public class CuePlayer {
 	}
 	
 	/**
-	 * Determines if this {@link CuePlayer} is currently executing cues.
-	 * A {@link CuePlayer} executes cues as long as it has cues to execute and has been started.
+	 * Determines if this <code>CuePlayer</code> is currently executing cues.
+	 * A <code>CuePlayer</code> executes cues as long as it has cues to execute and has been started.
 	 * @return whether or not this {@link CuePlayer} is currently executing cues.
 	 */
 	public boolean isRunning() {
@@ -123,7 +123,7 @@ public class CuePlayer {
 	}
 	
 	/**
-	 * Gets the elapsed time that has progressed from when this {@link CuePlayer} started running.
+	 * Gets the elapsed time that has progressed from when this <code>CuePlayer</code> started running.
 	 * @return a time value in milliseconds.
 	 */
 	public long getElapsedTime() {
