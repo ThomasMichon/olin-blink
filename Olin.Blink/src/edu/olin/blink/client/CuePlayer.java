@@ -122,6 +122,14 @@ public class CuePlayer {
 		}
 	}
 	
+	/**
+	 * Gets the elapsed time that has progressed from when this {@link CuePlayer} started running.
+	 * @return a time value in milliseconds.
+	 */
+	public long getElapsedTime() {
+		return System.currentTimeMillis() - startTime;
+	}
+	
 	private void nextCue() {
 		Cue cue = queue.poll();
 		if (cue == null) {
