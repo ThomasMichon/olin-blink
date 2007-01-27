@@ -7,8 +7,9 @@
  * and open the template in the editor.
  */
 
-package edu.olin.blink.network;
+package edu.olin.blink.network.demo;
 
+import edu.olin.blink.network.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
