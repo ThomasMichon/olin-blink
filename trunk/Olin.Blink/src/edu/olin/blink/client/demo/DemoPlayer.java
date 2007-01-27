@@ -1,6 +1,7 @@
-package edu.olin.blink.client;
+package edu.olin.blink.client.demo;
 
 import edu.olin.blink.Cue;
+import edu.olin.blink.client.*;
 import java.util.LinkedList;
 import java.util.List;
 
