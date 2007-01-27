@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 /**
  * A simple demonstration of the DemoPlayer, with a nice GUI
