@@ -1,6 +1,7 @@
-package edu.olin.blink.client;
+package edu.olin.blink.client.demo;
 
 import edu.olin.blink.Cue;
+import edu.olin.blink.client.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.LinkedList;
