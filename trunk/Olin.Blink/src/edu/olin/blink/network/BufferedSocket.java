@@ -92,6 +92,18 @@ public class BufferedSocket {
     public void close() throws IOException { sock.close(); }
     
     /**
+     * Determines the closed state of the socket
+     * @returns whether or not the socket is closed
+     */
+    public boolean isClosed() { return sock.isClosed(); }
+    
+    /**
+     * Returns the connection state of the socket
+     * @returns true if the socket successfully connected to the server
+     */
+    public boolean isConnected() { return sock.isConnected(); }
+
+    /**
      * Immediately writes all data currently dis the buffer into the stream, regardless
      * of whether the buffer is full.
      *
