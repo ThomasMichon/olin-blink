@@ -9,10 +9,7 @@ import java.io.IOException;
  * @author jstanton
  */
 public class LightLevelCueWriter {
-    
-    /**
-     * The BufferedSocket into which data will be written
-     */
+
     private BufferedSocket bs = null;
     
     /**
